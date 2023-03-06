@@ -32,24 +32,35 @@ VITS方面
 
 下载安装[espeak-ng](https://github.com/espeak-ng/espeak-ng/releases)
 
-conda环境可以
+添加环境变量
+
+```
+PHONEMIZER_ESPEAK_PATH “C:\Program Files\eSpeak NG”
+PHONEMIZER_ESPEAK_LIBRARY "C:\Program Files\eSpeak NG\libespeak-ng.dll"
+```
+
+或conda环境可以
 
 ```
 conda env config vars set PHONEMIZER_ESPEAK_PATH=“C:\Program Files\eSpeak NG”`
 conda env config vars set PHONEMIZER_ESPEAK_LIBRARY="C:\Program Files\eSpeak NG\libespeak-ng.dll"
 ```
 
-或者添加环境变量
-
-```
-PHONEMIZER_ESPEAK_PATH “C:\Program Files\eSpeak NG”
-
-PHONEMIZER_ESPEAK_LIBRARY "C:\Program Files\eSpeak NG\libespeak-ng.dll"
-```
-
-
+OpenAI API Key: 自行注册或联系我
 
 ## Pre-trained models
+
+技术交流，严禁商用
+
+| 名称                                                         | config                                                       | 音素     | 语言        | 语料     | 来源                                                         | 人   |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | -------- | ----------- | -------- | ------------------------------------------------------------ | ---- |
+| [vctk(base)](https://drive.google.com/drive/folders/1ksarh-cJf3F5eKJjLVWY0X1j1qsQqiS2) | [link](https://github.com/jaywalnut310/vits/blob/main/configs/vctk_base.json) | 英文音标 | en,zh       | vctk     | [vits](https://github.com/jaywalnut310/vits)                 | 110  |
+| [yuzu](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/EQ0IKHchgzZAt0E6GryW17EBsIlIkmby6BcO9FtoODjwNQ?e=5uzWtj) | [link](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/EYZfZuW5jtxIqIesYOpFuB4BVWtItUIO2f9YxGQZelRxaQ?e=MCZPCL) | 国际音标 | jp,zh       | yuzusoft | [moegeo](https://github.com/CjangCjengh/TTSModels)           | 4    |
+| [cjke](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/EfW8nGHBejxEisHhxVjq1v4BOxqT7YJ-p_pudTPEoDDxxw?e=O8DNrR) | [link](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/ERQ2nNccQmBHhnbxItByn0YB0SQ-UHCahzoIGXb2RA-FoQ?e=mQ6fKo) | 国际音标 | jp,zh,en,kr | anime    | [moegeo](https://github.com/CjangCjengh/TTSModels)           | 2890 |
+| [genshin](https://huggingface.co/lrioxh/vits/blob/main/G_809000.pth) | [link](https://huggingface.co/lrioxh/vits/blob/main/genshin809.json) | 汉语拼音 | zh          | 原       | [link](http://nscc-gz.cn/)                                   | 53   |
+| [uma87](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/pretrained_models/G_jp.pth) | [link](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/configs/uma87.json) | 罗马音   | jp          | 马       | [Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 87   |
+| [yumag](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/pretrained_models/G_trilingual.pth) | [link](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/configs/uma_trilingual.json) | 国际音标 | zh,jp,en    | 马yuzu原 | [Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 147  |
+| [humag](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | [link](https://huggingface.co/spaces/sayashi/vits-uma-genshin-honkai/blob/main/model/config.json) | 国际音标 | zh,jp       | 马崩原   | [sayashi](https://huggingface.co/spaces/sayashi/vits-uma-genshin-honkai) | 804  |
 
 
 
@@ -58,7 +69,20 @@ PHONEMIZER_ESPEAK_LIBRARY "C:\Program Files\eSpeak NG\libespeak-ng.dll"
 
 
 ## Fuctions
+指令集，用于更改设定和执行一些简单功能，无需指令也可正常运行，运行后可随时输入指令
 
+| 指令                       | 作用                       | 说明                                  | 示例       |
+| -------------------------- | -------------------------- | ------------------------------------- | ---------- |
+| /{model_name}              | 更换vits模型               | 合法值见模型名称，默认yumag           | /uma87     |
+| /{model_name}={speaker_id} | 更换vits模型同时指定说话人 | speaker_id合法值可通过/speakers查看   | /humag=328 |
+| /{speaker_id}              | 指定当前模型说话人         | 同上                                  | /233       |
+| /speakers                  | 显示可用说话人和当前说话人 | -                                     | -          |
+| /name={str}                | 设置对话AI名字             | 给你的幻想朋友起个名                  | /name=MOSS |
+| /api={api}, /{api}         | 更换对话API                | api合法值[gpt3, chatGPT]，默认chatGPT | /gpt3      |
+| /{device}                  | 更换推理设备               | [cpu,cuda], 默认cuda                  | /cpu       |
+| /restart                   | 重启服务，重置设定         | -                                     | -          |
+
+bug反馈可提交issue
 
 ## Reference
 - [jaywalnut310/vits: VITS: Conditional Variational Autoencoder with Adversarial Learning for End-to-End Text-to-Speech](https://github.com/jaywalnut310/vits)
