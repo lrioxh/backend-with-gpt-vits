@@ -6,7 +6,7 @@ VITS方面
 
 前端
 
-代码参考，感谢各位大佬
+代码基于参考，感谢各位大佬
 
 
 
@@ -28,6 +28,28 @@ VITS方面
 
 ## Requirements
 
+```
+pip install -r requirements.txt
+```
+
+#### openai-python
+
+openai 0.27.0 pypi已更新，但最新库可能需要手动安装
+
+[仓库](https://github.com/openai/openai-python)下载源码，不要下载release
+
+激活你的环境，cd源码目录
+
+```
+pip install .
+```
+
+OpenAI API Key: 自行注册或联系我
+
+#### espeak
+
+vctk依赖于espeak，不使用该模型可以不装
+
 [关于espeak安装](https://github.com/bootphon/phonemizer/issues/44)
 
 下载安装[espeak-ng](https://github.com/espeak-ng/espeak-ng/releases)
@@ -46,8 +68,6 @@ conda env config vars set PHONEMIZER_ESPEAK_PATH=“C:\Program Files\eSpeak NG�
 conda env config vars set PHONEMIZER_ESPEAK_LIBRARY="C:\Program Files\eSpeak NG\libespeak-ng.dll"
 ```
 
-OpenAI API Key: 自行注册或联系我
-
 ## Pre-trained models
 
 技术交流，严禁商用
@@ -62,11 +82,13 @@ OpenAI API Key: 自行注册或联系我
 | [yumag](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/pretrained_models/G_trilingual.pth) | [link](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/configs/uma_trilingual.json) | 国际音标 | zh,jp,en    | 马yuzu原 | [Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 147  |
 | [humag](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | [link](https://huggingface.co/spaces/sayashi/vits-uma-genshin-honkai/blob/main/model/config.json) | 国际音标 | zh,jp       | 马崩原   | [sayashi](https://huggingface.co/spaces/sayashi/vits-uma-genshin-honkai) | 804  |
 
-
+更改了genshin的cleaner可以读简单的数学公式。
 
 ## Run
 
+端口
 
+配置文件
 
 ## Fuctions
 指令集，用于更改设定和执行一些简单功能，无需指令也可正常运行，运行后可随时输入指令
@@ -77,10 +99,13 @@ OpenAI API Key: 自行注册或联系我
 | /{model_name}={speaker_id} | 更换vits模型同时指定说话人 | speaker_id合法值可通过/speakers查看   | /humag=328 |
 | /{speaker_id}              | 指定当前模型说话人         | 同上                                  | /233       |
 | /speakers                  | 显示可用说话人和当前说话人 | -                                     | -          |
+| /models                    | 显示可用模型和当前模型     | -                                     | -          |
+| /{device}                  | 更换推理设备               | [cpu,cuda], 默认cuda                  | /cpu       |
 | /name={str}                | 设置对话AI名字             | 给你的幻想朋友起个名                  | /name=MOSS |
 | /api={api}, /{api}         | 更换对话API                | api合法值[gpt3, chatGPT]，默认chatGPT | /gpt3      |
-| /{device}                  | 更换推理设备               | [cpu,cuda], 默认cuda                  | /cpu       |
 | /restart                   | 重启服务，重置设定         | -                                     | -          |
+
+
 
 bug反馈可提交issue
 
@@ -91,3 +116,4 @@ bug反馈可提交issue
 - [w4123/vits: VITS: Conditional Variational Autoencoder with Adversarial Learning for End-to-End Text-to-Speech](https://github.com/w4123/vits)
 - [acheong08/ChatGPT: Reverse engineered ChatGPT API](https://github.com/acheong08/ChatGPT)
 
++ [Plachtaa/VITS-fast-fine-tuning: This repo is a pipeline of VITS finetuning for fast speaker adaptation TTS, and any-to-any voice conversion](https://github.com/Plachtaa/VITS-fast-fine-tuning)
