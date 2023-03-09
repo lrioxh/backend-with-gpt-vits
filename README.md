@@ -1,18 +1,18 @@
 # Backend server with GPT & VITS
 
+（施工中）
+
 GPT方面
 
 VITS方面
 
-前端
+前端 [Live2DMascot](https://github.com/Arkueid/Live2DMascot)
 
-代码基于参考，感谢各位大佬
+代码基于[MoeGoe](https://github.com/CjangCjengh/MoeGoe)参考[vits_with_chatgpt-gpt3](https://github.com/Paraworks/vits_with_chatgpt-gpt3)、[VITS-fast-fine-tuning](https://github.com/Plachtaa/VITS-fast-fine-tuning)，感谢各位大佬
 
 
 
 目录
-
-
 
 准备：
 
@@ -34,7 +34,7 @@ pip install -r requirements.txt
 
 #### openai-python
 
-openai 0.27.0 pypi已更新，但最新库可能需要手动安装
+openai 0.27.0 pypi已更新，可直接pip安装，但最新库可能需要手动安装
 
 [仓库](https://github.com/openai/openai-python)下载源码，不要下载release
 
@@ -72,15 +72,15 @@ conda env config vars set PHONEMIZER_ESPEAK_LIBRARY="C:\Program Files\eSpeak NG\
 
 技术交流，严禁商用
 
-| 名称                                                         | config                                                       | 音素     | 语言        | 语料     | 来源                                                         | 人   |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | -------- | ----------- | -------- | ------------------------------------------------------------ | ---- |
-| [vctk(base)](https://drive.google.com/drive/folders/1ksarh-cJf3F5eKJjLVWY0X1j1qsQqiS2) | [link](https://github.com/jaywalnut310/vits/blob/main/configs/vctk_base.json) | 英文音标 | en,zh       | vctk     | [vits](https://github.com/jaywalnut310/vits)                 | 110  |
-| [yuzu](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/EQ0IKHchgzZAt0E6GryW17EBsIlIkmby6BcO9FtoODjwNQ?e=5uzWtj) | [link](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/EYZfZuW5jtxIqIesYOpFuB4BVWtItUIO2f9YxGQZelRxaQ?e=MCZPCL) | 国际音标 | jp,zh       | yuzusoft | [moegeo](https://github.com/CjangCjengh/TTSModels)           | 4    |
-| [cjke](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/EfW8nGHBejxEisHhxVjq1v4BOxqT7YJ-p_pudTPEoDDxxw?e=O8DNrR) | [link](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/ERQ2nNccQmBHhnbxItByn0YB0SQ-UHCahzoIGXb2RA-FoQ?e=mQ6fKo) | 国际音标 | jp,zh,en,kr | anime    | [moegeo](https://github.com/CjangCjengh/TTSModels)           | 2890 |
-| [genshin](https://huggingface.co/lrioxh/vits/blob/main/G_809000.pth) | [link](https://huggingface.co/lrioxh/vits/blob/main/genshin809.json) | 汉语拼音 | zh          | 原       | [link](http://nscc-gz.cn/)                                   | 53   |
-| [uma87](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/pretrained_models/G_jp.pth) | [link](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/configs/uma87.json) | 罗马音   | jp          | 马       | [Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 87   |
-| [yumag](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/pretrained_models/G_trilingual.pth) | [link](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/configs/uma_trilingual.json) | 国际音标 | zh,jp,en    | 马yuzu原 | [Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 147  |
-| [humag](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | [link](https://huggingface.co/spaces/sayashi/vits-uma-genshin-honkai/blob/main/model/config.json) | 国际音标 | zh,jp       | 马崩原   | [sayashi](https://huggingface.co/spaces/sayashi/vits-uma-genshin-honkai) | 804  |
+| 名称                                                         | 音素     | 语言        | 语料     | 来源                                                         | 人   |
+| ------------------------------------------------------------ | -------- | ----------- | -------- | ------------------------------------------------------------ | ---- |
+| [vctk(base)](https://drive.google.com/drive/folders/1ksarh-cJf3F5eKJjLVWY0X1j1qsQqiS2) | 英文音标 | en,zh       | vctk     | [vits](https://github.com/jaywalnut310/vits)                 | 110  |
+| [yuzu](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/EQ0IKHchgzZAt0E6GryW17EBsIlIkmby6BcO9FtoODjwNQ?e=5uzWtj) | 国际音标 | jp,zh       | yuzusoft | [moegeo](https://github.com/CjangCjengh/TTSModels)           | 4    |
+| [cjke](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/EfW8nGHBejxEisHhxVjq1v4BOxqT7YJ-p_pudTPEoDDxxw?e=O8DNrR) | 国际音标 | jp,zh,en,kr | anime    | [moegeo](https://github.com/CjangCjengh/TTSModels)           | 2890 |
+| [genshin](https://huggingface.co/lrioxh/vits/blob/main/G_809000.pth) | 汉语拼音 | zh          | 原       | [link](http://nscc-gz.cn/)                                   | 53   |
+| [uma87](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/pretrained_models/G_jp.pth) | 罗马音   | jp          | 马       | [Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 87   |
+| [yumag](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/pretrained_models/G_trilingual.pth) | 国际音标 | zh,jp,en    | 马yuzu原 | [Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 147  |
+| [humag](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 国际音标 | zh,jp       | 马崩原   | [sayashi](https://huggingface.co/spaces/sayashi/vits-uma-genshin-honkai) | 804  |
 
 更改了genshin的cleaner可以读简单的数学公式。
 
@@ -114,6 +114,5 @@ bug反馈可提交issue
 - [CjangCjengh/MoeGoe: Executable file for VITS inference](https://github.com/CjangCjengh/MoeGoe)
 - [Paraworks/vits_with_chatgpt-gpt3](https://github.com/Paraworks/vits_with_chatgpt-gpt3)
 - [w4123/vits: VITS: Conditional Variational Autoencoder with Adversarial Learning for End-to-End Text-to-Speech](https://github.com/w4123/vits)
-- [acheong08/ChatGPT: Reverse engineered ChatGPT API](https://github.com/acheong08/ChatGPT)
 
 + [Plachtaa/VITS-fast-fine-tuning: This repo is a pipeline of VITS finetuning for fast speaker adaptation TTS, and any-to-any voice conversion](https://github.com/Plachtaa/VITS-fast-fine-tuning)
