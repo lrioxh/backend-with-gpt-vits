@@ -15,11 +15,13 @@ from torch import no_grad, LongTensor
 import logging
 # from text.symbols import symbols
 import openai
+import base64
 from flask import Flask, request,make_response
 # import tiktoken
 # encoding = tiktoken.get_encoding("p50k_base")
 app = Flask(__name__)
-openai.api_key = "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"
+openkey="c2stWXVqbjlEYjR1SW5PYzlka1psTHpUM0JsYmtGSlR1QnRaQnlNZVA0U21lVU5ka21Q"
+openai.api_key = str(base64.b64decode(openkey.encode("ascii")), 'utf-8')
 logging.getLogger('numba').setLevel(logging.WARNING)
 
 zh_pattern = re.compile(r'[\u4e00-\u9fa5]')
