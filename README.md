@@ -2,31 +2,17 @@
 
 （施工中）
 
-GPT方面
+GPT方面接入chatGPT和gpt3 api，有记忆连续对话，可切换
 
-VITS方面
-
-前端 [Live2DMascot](https://github.com/Arkueid/Live2DMascot)
+VITS方面详见表格，中英日韩自动tag读出
 
 代码基于[MoeGoe](https://github.com/CjangCjengh/MoeGoe)参考[vits_with_chatgpt-gpt3](https://github.com/Paraworks/vits_with_chatgpt-gpt3)、[VITS-fast-fine-tuning](https://github.com/Plachtaa/VITS-fast-fine-tuning)，感谢各位大佬
 
 
 
-目录
-
-准备：
-
-环境
-
-模型
-
-运行
-
-功能，命令说明
-
-
-
 ## Requirements
+
+前端 [Live2DMascot](https://github.com/Arkueid/Live2DMascot)
 
 ```
 pip install -r requirements.txt
@@ -44,7 +30,7 @@ openai 0.27.0 pypi已更新，可直接pip安装，但最新库可能需要手�
 pip install .
 ```
 
-OpenAI API Key: 自行注册或联系我
+OpenAI API Key: 自行注册或[联系我](https://space.bilibili.com/23698455)
 
 #### espeak
 
@@ -86,9 +72,13 @@ conda env config vars set PHONEMIZER_ESPEAK_LIBRARY="C:\Program Files\eSpeak NG\
 
 ## Run
 
-端口
+运行server.py
 
-配置文件
+注意端口与前端一致
+
+[配置文件](https://github.com/lrioxh/backend-with-gpt-vits/blob/main/server_config.json)可以添加模型，更改默认配置
+
+![image-20230310114752315](http://m.qpic.cn/psc?/V52VtAJj03gqAZ1Zi9Ot2f5BBX0L3sbF/bqQfVz5yrrGYSXMvKr.cqWsrEn6Fs7jn8YSikLlBqs5oRsu5FD3zxHbcEtAHADMqlT*6bPEXcxyPhzd0QLOp2T7M4ouw7BlCEuiBRpsfdc0!/b&bo=2wEpAQAAAAADB9A!&rf=viewer_4)
 
 ## Fuctions
 指令集，用于更改设定和执行一些简单功能，无需指令也可正常运行，运行后可随时输入指令
@@ -104,8 +94,6 @@ conda env config vars set PHONEMIZER_ESPEAK_LIBRARY="C:\Program Files\eSpeak NG\
 | /name={str}                | 设置对话AI名字             | 给你的幻想朋友起个名                  | /name=MOSS |
 | /api={api}, /{api}         | 更换对话API                | api合法值[gpt3, chatGPT]，默认chatGPT | /gpt3      |
 | /restart                   | 重启服务，重置设定         | -                                     | -          |
-
-
 
 bug反馈可提交issue
 
