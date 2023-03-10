@@ -1,14 +1,10 @@
 # Backend server with GPT & VITS
 
-（施工中）
-
 GPT方面接入chatGPT和gpt3 api，有记忆连续对话，可切换
 
 VITS方面详见表格，中英日韩自动tag读出
 
 代码基于[MoeGoe](https://github.com/CjangCjengh/MoeGoe)参考[vits_with_chatgpt-gpt3](https://github.com/Paraworks/vits_with_chatgpt-gpt3)、[VITS-fast-fine-tuning](https://github.com/Plachtaa/VITS-fast-fine-tuning)，感谢各位大佬
-
-
 
 ## Requirements
 
@@ -72,7 +68,7 @@ conda env config vars set PHONEMIZER_ESPEAK_LIBRARY="C:\Program Files\eSpeak NG\
 
 ## Run
 
-运行server.py
+运行server.py 与 前端
 
 注意端口与前端一致
 
