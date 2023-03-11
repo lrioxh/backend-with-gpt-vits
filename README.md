@@ -8,47 +8,55 @@ VITS方面详见表格，中英日韩自动tag读出
 
 ## Requirements
 
-前端 [Live2DMascot](https://github.com/Arkueid/Live2DMascot)
+##### 0. 本项目仅含后端，需要前端图形界面（比如 [Live2DMascot](https://github.com/Arkueid/Live2DMascot) ）
+
+##### 1. 依赖参考
 
 ```
 pip install -r requirements.txt
 ```
 
-#### openai-python
+##### 2. openai-python
 
-openai 0.27.0 pypi已更新，可直接pip安装，但最新库可能需要手动安装
+openai 0.27.0 pypi已更新，可直接pip安装，已成功安装0.27以上版本可略过
 
-[仓库](https://github.com/openai/openai-python)下载源码，不要下载release
+> 最新库可能需要手动安装
+>
+> [仓库](https://github.com/openai/openai-python)下载源码，不要下载release
+>
+> 激活你的环境，cd源码目录
+>
+> ```
+> pip install .
+> ```
+>
+> OpenAI API Key: 自行注册或[联系我](https://space.bilibili.com/23698455)
+>
 
-激活你的环境，cd源码目录
+##### espeak
 
-```
-pip install .
-```
+vctk依赖于espeak，不使用该模型可以略过
 
-OpenAI API Key: 自行注册或[联系我](https://space.bilibili.com/23698455)
+> [关于espeak安装](https://github.com/bootphon/phonemizer/issues/44)
+>
+> 下载安装[espeak-ng](https://github.com/espeak-ng/espeak-ng/releases)
+>
+> 添加环境变量
+>
+> ```
+> PHONEMIZER_ESPEAK_PATH “C:\Program Files\eSpeak NG”
+> PHONEMIZER_ESPEAK_LIBRARY "C:\Program Files\eSpeak NG\libespeak-ng.dll"
+> ```
+>
+> 或conda环境可以
+>
+> ```
+> conda env config vars set PHONEMIZER_ESPEAK_PATH=“C:\Program Files\eSpeak NG”`
+> conda env config vars set PHONEMIZER_ESPEAK_LIBRARY="C:\Program Files\eSpeak NG\libespeak-ng.dll"
+> ```
+>
 
-#### espeak
 
-vctk依赖于espeak，不使用该模型可以不装
-
-[关于espeak安装](https://github.com/bootphon/phonemizer/issues/44)
-
-下载安装[espeak-ng](https://github.com/espeak-ng/espeak-ng/releases)
-
-添加环境变量
-
-```
-PHONEMIZER_ESPEAK_PATH “C:\Program Files\eSpeak NG”
-PHONEMIZER_ESPEAK_LIBRARY "C:\Program Files\eSpeak NG\libespeak-ng.dll"
-```
-
-或conda环境可以
-
-```
-conda env config vars set PHONEMIZER_ESPEAK_PATH=“C:\Program Files\eSpeak NG”`
-conda env config vars set PHONEMIZER_ESPEAK_LIBRARY="C:\Program Files\eSpeak NG\libespeak-ng.dll"
-```
 
 ## Pre-trained models
 
