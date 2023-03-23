@@ -1,5 +1,9 @@
 # Backend server with GPT & VITS
 
+TODO：whiper&riva语音输入
+
+
+
 GPT方面接入chatGPT和gpt3 api，有记忆连续对话，可切换
 
 VITS方面详见表格，中英日韩自动tag读出
