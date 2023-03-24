@@ -20,6 +20,10 @@ VITS方面详见表格，中英日韩自动tag读出
 pip install -r requirements.txt
 ```
 
+```
+pip install -U openai-whisper
+```
+
 ##### 2. openai-python
 
 openai 0.27.0 pypi已更新，可直接pip安装，已成功安装0.27以上版本可略过
