@@ -1,6 +1,6 @@
 {
     "log_root": "./log",
-    "out_path": "./cache/temp.wav",
+    "cache_path": "./cache",
     "device": "cuda",
     "pipeline": "yumag",
     "log_save_fmt": "csv",

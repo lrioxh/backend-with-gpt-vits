@@ -11,6 +11,8 @@ class whisper_ASR():
         self.cfg=utils.get_hparams_from_file(config_path)
         self.device=torch.device(self.cfg.device)
         self.model = whisper.load_model(self.cfg.whisper.size,self.device,self.cfg.whisper.model_path)
+        self.r = sr.Recognizer() #创建识别类
+        self.mic = sr.Microphone() #创建麦克风对象
         # pass
 
     def recognize(self,file):
@@ -31,22 +33,31 @@ class whisper_ASR():
         result = whisper.decode(self.model, mel, options)
         print(result.text)
         return result.text
+    
+    def get_msg(self):
+        file=f"{self.cfg.cache_path}/input.wav"
+        with self.mic as source:
+            self.r.adjust_for_ambient_noise(source) #减少环境噪音
+            audio = self.r.listen(source, timeout=1000) #录音，1000ms超时
+        with open(file, "wb") as f:
+            f.write(audio.get_wav_data(convert_rate=16000)) #写文件
+        message = self.recognize(file)
+        return message
 
 @app.route("/asr", methods=["GET"])
 def asr_():
     '''处理前端信息和后端响应'''
-    with mic as source:
-        r.adjust_for_ambient_noise(source) #减少环境噪音
-        audio = r.listen(source, timeout=1000) #录音，1000ms超时
-    with open('cache/' + f"test.wav", "wb") as f:
-        f.write(audio.get_wav_data(convert_rate=16000)) #写文件
-    message = asr.recognize(f"cache/test.wav")
+    # with mic as source:
+    #     r.adjust_for_ambient_noise(source) #减少环境噪音
+    #     audio = r.listen(source, timeout=1000) #录音，1000ms超时
+    # with open('cache/' + f"test.wav", "wb") as f:
+    #     f.write(audio.get_wav_data(convert_rate=16000)) #写文件
+    # message = asr.recognize(f"cache/test.wav")
+    message=asr.get_msg()
     return message
     
 if __name__ == '__main__':
     server_config=r'./server_config.json'
     asr=whisper_ASR(server_config)
-    r = sr.Recognizer() #创建识别类
-    mic = sr.Microphone() #创建麦克风对象
     
     app.run("0.0.0.0", 55001,debug=True) 

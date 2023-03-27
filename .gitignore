@@ -5,3 +5,5 @@ cache/*
 !cache/*.txt
 pipeline/*.pt
 pipeline/*.bin
+.vscode/*
+./__pycache__/*

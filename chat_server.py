@@ -17,7 +17,7 @@ from torch import no_grad, LongTensor
 import openai
 import base64
 from flask import Flask, request,make_response, jsonify
-from asr_server import whisper_ASR,sr
+from asr_server import whisper_ASR
 # import requests
 # from threading import Thread, Event
 # from queue import Queue
@@ -38,26 +38,17 @@ tags={'ZH':'[ZH]','EN':'[EN]','JP':'[JA]','KR':'[KR]'}
 # stop_event = Event()
 # msg_queue = Queue()
 
-r = sr.Recognizer() #创建识别类
-mic = sr.Microphone() #创建麦克风对象
-
 def restart_program():
     python = sys.executable
     os.execl(python, python, * sys.argv)
 
-def get_asr_msg():
-    # from asr_server import whisper_ASR,sr
-    # asr=whisper_ASR(server_config)
-    # r = sr.Recognizer() #创建识别类
-    # mic = sr.Microphone() #创建麦克风对象
-    with mic as source:
-        r.adjust_for_ambient_noise(source) #减少环境噪音
-        audio = r.listen(source, timeout=1000) #录音，1000ms超时
-    with open('cache/' + f"test.wav", "wb") as f:
-        f.write(audio.get_wav_data(convert_rate=16000)) #写文件
-    message = asr.recognize(f"cache/test.wav")
-    # print()
-    return message
+# def get_asr_msg():
+#     # from asr_server import whisper_ASR,sr
+#     # asr=whisper_ASR(server_config)
+#     # r = sr.Recognizer() #创建识别类
+#     # mic = sr.Microphone() #创建麦克风对象
+#     # print()
+#     return asr.get_msg()
 
 # def start_thread(size,device,model_path):
 #     # 启动新线程
@@ -238,6 +229,7 @@ class api_server():
         self.n_symbols=0
         self.sys_title=None     # chatGPT system prompt
         self.device=torch.device(self.cfg.device)
+        self.res_path=self.cfg.cache_path+"res.wav"
         self.log=[]             # 聊天上下文缓存
         self.log_path=None
         self.token=0            # openai request 长度
@@ -551,7 +543,7 @@ class api_server():
                     [0][0, 0].data.cpu().float().numpy()
 
 
-            write(self.cfg.out_path, self.hps_ms.data.sampling_rate, audio)
+            write(self.res_path, self.hps_ms.data.sampling_rate, audio)
             # if self.pipeline=='vctk':speaker='vctk'
             speakers=self.get_speaker()  
             speaker=speakers[self.cfg.vits[self.cfg.pipeline]._id] if self.cfg.pipeline!='vctk' else 'vctk'
@@ -567,7 +559,7 @@ def chat():
     
     if text[0]=="/":
         if text=="//":
-            text=get_asr_msg()
+            text=asr.get_msg()
         else:
             res=vist_chat.command(text)
             print(vist_chat.cfg.gpt,vist_chat.cfg.pipeline,vist_chat.cfg.vits[vist_chat.cfg.pipeline]._id,vist_chat.device)
@@ -590,7 +582,7 @@ def chat():
     rsp.headers.add_header("Text", reply.encode("utf-8"))
 
     # 响应body中写入音频数据
-    with open(vist_chat.cfg.out_path, "rb") as f:
+    with open(vist_chat.res_path, "rb") as f:
         rsp.set_data(f.read())
     return rsp
 
