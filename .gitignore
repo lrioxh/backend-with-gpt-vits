@@ -6,4 +6,4 @@ cache/*
 pipeline/*.pt
 pipeline/*.bin
 .vscode/*
-./__pycache__/*
+__pycache__/*
