@@ -1,8 +1,10 @@
 # Backend server with GPT & VITS
 
-TODO：whiper&riva语音输入
+> TODO：riva语音输入，语音输入GUI显示
+>
+> UPDATE: whisper语音输入, 第一次会下载预训练模型
 
-
+更新中...
 
 GPT方面接入chatGPT和gpt3 api，有记忆连续对话，可切换
 
@@ -18,10 +20,6 @@ VITS方面详见表格，中英日韩自动tag读出
 
 ```
 pip install -r requirements.txt
-```
-
-```
-pip install -U openai-whisper
 ```
 
 ##### 2. openai-python
@@ -84,7 +82,7 @@ vctk依赖于espeak，不使用该模型可以略过
 
 ## Run
 
-运行server.py 与 前端
+运行chat_server.py 与 前端
 
 注意端口与前端一致
 
@@ -106,6 +104,7 @@ vctk依赖于espeak，不使用该模型可以略过
 | /name={str}                | 设置对话AI名字             | 给你的幻想朋友起个名                  | /name=MOSS |
 | /api={api}, /{api}         | 更换对话API                | api合法值[gpt3, chatGPT]，默认chatGPT | /gpt3      |
 | /restart                   | 重启服务，重置设定         | -                                     | -          |
+| //                         | 语音输入开始录音（暂用）   | -                                     | -          |
 
 bug反馈可提交issue
 

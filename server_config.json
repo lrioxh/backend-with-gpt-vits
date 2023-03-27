@@ -1,14 +1,18 @@
 {
     "log_root": "./log",
-    "out_path": "./out/temp.wav",
+    "out_path": "./cache/temp.wav",
+    "device": "cuda",
+    "pipeline": "yumag",
+    "log_save_fmt": "csv",
+    "whisper": {
+        "size": "small",
+        "model_path": "./pipeline"
+    },
     "gpt": {
         "api": "chatGPT",
         "lang": "zh",
         "name": "MOSS"
     },
-    "device": "cuda",
-    "pipeline": "yumag",
-    "log_save_fmt": "csv",
     "gpt3": {
         "log_thr": 2000,
         "model": "text-davinci-003",

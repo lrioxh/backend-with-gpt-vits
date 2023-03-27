@@ -12,17 +12,21 @@ import os
 import time
 import torch
 from torch import no_grad, LongTensor
-import logging
+# import logging
 # from text.symbols import symbols
 import openai
 import base64
-from flask import Flask, request,make_response
+from flask import Flask, request,make_response, jsonify
+from asr_server import whisper_ASR,sr
+# import requests
+# from threading import Thread, Event
+# from queue import Queue
 # import tiktoken
 # encoding = tiktoken.get_encoding("p50k_base")
 app = Flask(__name__)
 openkey="c2stWXVqbjlEYjR1SW5PYzlka1psTHpUM0JsYmtGSlR1QnRaQnlNZVA0U21lVU5ka21Q"
 openai.api_key = str(base64.b64decode(openkey.encode("ascii")), 'utf-8')
-logging.getLogger('numba').setLevel(logging.WARNING)
+# logging.getLogger('numba').setLevel(logging.WARNING)
 
 zh_pattern = re.compile(r'[\u4e00-\u9fa5]')
 en_pattern = re.compile(r'[a-zA-Z]')
@@ -31,10 +35,54 @@ kr_pattern = re.compile(r'[\uac00-\ud7af\u1100-\u11ff\u3130-\u318f\ua960-\ua97f]
 num_pattern=re.compile(r'[0-9]')
 comma=r"(?<=[.。!！?？；;，,、:：'\"‘“”’()（）《》「」~——])"    #向前匹配但固定长度
 tags={'ZH':'[ZH]','EN':'[EN]','JP':'[JA]','KR':'[KR]'}
+# stop_event = Event()
+# msg_queue = Queue()
+
+r = sr.Recognizer() #创建识别类
+mic = sr.Microphone() #创建麦克风对象
 
 def restart_program():
     python = sys.executable
     os.execl(python, python, * sys.argv)
+
+def get_asr_msg():
+    # from asr_server import whisper_ASR,sr
+    # asr=whisper_ASR(server_config)
+    # r = sr.Recognizer() #创建识别类
+    # mic = sr.Microphone() #创建麦克风对象
+    with mic as source:
+        r.adjust_for_ambient_noise(source) #减少环境噪音
+        audio = r.listen(source, timeout=1000) #录音，1000ms超时
+    with open('cache/' + f"test.wav", "wb") as f:
+        f.write(audio.get_wav_data(convert_rate=16000)) #写文件
+    message = asr.recognize(f"cache/test.wav")
+    # print()
+    return message
+
+# def start_thread(size,device,model_path):
+#     # 启动新线程
+#     t = Thread(target=to_whisper,args=(size,device,model_path))
+#     t.start()
+#     return 'Started'
+
+# def stop_thread():
+#     # 设置Event对象，停止线程运行
+#     stop_event.set()
+#     return 'Stopped'
+
+# def to_whisper(size,device,model_path):
+#     from asr import whisper_ASR,sr
+#     _ASR=whisper_ASR(size,device,model_path)
+#     r = sr.Recognizer() #创建识别类
+#     mic = sr.Microphone() #创建麦克风对象
+#     while not stop_event.is_set():
+#         # 这里可以写你的逻辑，获取msg并返回
+#         msg = 'Hello World'
+#         # print(msg)
+#         # 通过Flask提供的方法将数据返回到主线程
+#         msg_queue.put(msg)
+#         # 线程休眠，避免过于频繁的操作
+#         stop_event.wait(1)
 
 def tag_cjke(text):
     '''为中英日韩加tag,中日正则分不开，故先分句分离中日再识别，以应对大部分情况
@@ -261,7 +309,7 @@ class api_server():
             cmd=cmd.strip()
             if len(cmd)==0:continue
             elif len(re.sub(r'[0-9]+', '', cmd))==0:
-                self.cfg.vits[self.cfg.pipeline]=int(cmd)
+                self.cfg.vits[self.cfg.pipeline]._id=int(cmd)
 
             elif cmd in self.cfg.vits.keys():
                 self.cfg.pipeline=cmd
@@ -277,6 +325,8 @@ class api_server():
             elif cmd=='models':
                 return self.get_models()
             elif cmd=='restart':restart_program()
+            # elif cmd=='listen':return get_asr_msg()
+            # elif cmd=='quit':return stop_thread()
             elif '=' in cmd:
                 k,v=cmd.split('=')
                 if k in self.cfg.vits.keys():
@@ -516,16 +566,19 @@ def chat():
     print("文本: %s" % text)
     
     if text[0]=="/":
-        res=vist_chat.command(text)
-        print(vist_chat.cfg.gpt,vist_chat.cfg.pipeline,vist_chat.cfg.vits[vist_chat.cfg.pipeline]._id,vist_chat.device)
-        # vist_chat.load_moudle()
-        rsp = make_response()
-        if res:
-            print(res)
-            rsp.headers.add_header("Text", res.encode("utf-8"))
+        if text=="//":
+            text=get_asr_msg()
         else:
-            rsp.headers.add_header("Text", "更改成功".encode("utf-8"))
-        return rsp
+            res=vist_chat.command(text)
+            print(vist_chat.cfg.gpt,vist_chat.cfg.pipeline,vist_chat.cfg.vits[vist_chat.cfg.pipeline]._id,vist_chat.device)
+            # vist_chat.load_moudle()
+            rsp = make_response()
+            if res:
+                print(res)
+                rsp.headers.add_header("Text", res.encode("utf-8"))
+            else:
+                rsp.headers.add_header("Text", "更改成功".encode("utf-8"))
+            return rsp
     
     rsp = make_response()
     reply=vist_chat.chat(text)
@@ -546,6 +599,7 @@ if __name__ == '__main__':
     server_config=r'./server_config.json'
     vist_chat=api_server(server_config)
     vist_chat.load_moudle()
+    asr=whisper_ASR(server_config)
     
     app.run("0.0.0.0", 55000,debug=True) 
 

@@ -1,5 +1,7 @@
 pipeline/*/*.pth
 test*.py
 log/*
-*.mp3
-*.pt
+cache/*
+!cache/*.txt
+pipeline/*.pt
+pipeline/*.bin

@@ -19,3 +19,5 @@ opencc
 audonnx
 openai >=0.27.0
 flask
+openai-whisper
+speech_recognition
