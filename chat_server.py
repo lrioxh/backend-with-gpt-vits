@@ -229,7 +229,7 @@ class api_server():
         self.n_symbols=0
         self.sys_title=None     # chatGPT system prompt
         self.device=torch.device(self.cfg.device)
-        self.res_path=self.cfg.cache_path+"res.wav"
+        self.res_path=f"{self.cfg.cache_path}/res.wav"
         self.log=[]             # 聊天上下文缓存
         self.log_path=None
         self.token=0            # openai request 长度
