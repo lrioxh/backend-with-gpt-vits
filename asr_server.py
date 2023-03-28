@@ -14,7 +14,11 @@ class whisper_ASR():
         self.r = sr.Recognizer() #创建识别类
         self.mic = sr.Microphone() #创建麦克风对象
         # pass
-
+    def reload(self,cfg):
+        self.cfg=cfg
+        self.device=torch.device(self.cfg.device)
+        self.model = whisper.load_model(self.cfg.whisper.size,self.device,self.cfg.whisper.model_path)
+        
     def recognize(self,file):
         # load audio and pad/trim it to fit 30 seconds
         audio = whisper.load_audio(file)

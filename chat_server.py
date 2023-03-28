@@ -307,7 +307,7 @@ class api_server():
                 self.cfg.pipeline=cmd
                 self.update_vits()
             elif cmd in ['cuda','cpu']:
-                self.device=torch.device(cmd);self.update_vits()
+                self.device=torch.device(cmd);self.update_vits();asr.reload(self.cfg)
             elif cmd in ['gpt3','chatGPT']:
                 self.cfg.gpt.api=cmd
                 self.update_gpt()

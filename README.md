@@ -1,10 +1,10 @@
 # Backend server with GPT & VITS
 
 > TODO：riva语音输入，语音输入GUI显示
->
-> UPDATE: whisper语音输入, 第一次会下载预训练模型
 
 更新中...
+
+UPDATE: whisper语音输入, 第一次会下载预训练模型。输入//指令开始录音
 
 GPT方面接入chatGPT和gpt3 api，有记忆连续对话，可切换
 
