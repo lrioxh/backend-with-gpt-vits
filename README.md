@@ -14,7 +14,9 @@ VITS方面详见表格，中英日韩自动tag读出
 
 ## Requirements
 
-##### 0. 本项目仅含后端，需要前端图形界面（比如 [Live2DMascot](https://github.com/Arkueid/Live2DMascot) ）
+##### 0.1 本项目仅含后端，需要前端图形界面（比如 [Live2DMascot](https://github.com/Arkueid/Live2DMascot) ）
+
+##### 0.2 whisper安装参考[原仓库](https://github.com/openai/whisper)，需要安装命令行的[FFmpeg](https://ffmpeg.org/)
 
 ##### 1. 依赖参考
 
@@ -22,7 +24,7 @@ VITS方面详见表格，中英日韩自动tag读出
 pip install -r requirements.txt
 ```
 
-##### 2. openai-python
+##### 2. openai-python (**可略过**)
 
 openai 0.27.0 pypi已更新，可直接pip安装，已成功安装0.27以上版本可略过
 
@@ -39,9 +41,9 @@ openai 0.27.0 pypi已更新，可直接pip安装，已成功安装0.27以上版�
 > OpenAI API Key: 自行注册或[联系我](https://space.bilibili.com/23698455)
 >
 
-##### espeak
+##### 3. espeak (**可略过**)
 
-vctk依赖于espeak，不使用该模型可以略过
+vctk依赖于espeak，不使用该模型**可以略过**
 
 > [关于espeak安装](https://github.com/bootphon/phonemizer/issues/44)
 >
@@ -80,6 +82,8 @@ vctk依赖于espeak，不使用该模型可以略过
 
 更改了genshin的cleaner可以读简单的数学公式。
 
+
+
 ## Run
 
 运行chat_server.py 与 前端
@@ -90,7 +94,10 @@ vctk依赖于espeak，不使用该模型可以略过
 
 ![image-20230310114752315](http://m.qpic.cn/psc?/V52VtAJj03gqAZ1Zi9Ot2f5BBX0L3sbF/bqQfVz5yrrGYSXMvKr.cqWsrEn6Fs7jn8YSikLlBqs5oRsu5FD3zxHbcEtAHADMqlT*6bPEXcxyPhzd0QLOp2T7M4ouw7BlCEuiBRpsfdc0!/b&bo=2wEpAQAAAAADB9A!&rf=viewer_4)
 
+
+
 ## Fuctions
+
 指令集，用于更改设定和执行一些简单功能，无需指令也可正常运行，运行后可随时输入指令
 
 | 指令                       | 作用                       | 说明                                  | 示例       |
@@ -107,6 +114,8 @@ vctk依赖于espeak，不使用该模型可以略过
 | //                         | 语音输入开始录音（暂用）   | -                                     | -          |
 
 bug反馈可提交issue
+
+
 
 ## Reference
 - [jaywalnut310/vits: VITS: Conditional Variational Autoencoder with Adversarial Learning for End-to-End Text-to-Speech](https://github.com/jaywalnut310/vits)
