@@ -24,7 +24,7 @@ from asr_server import whisper_ASR
 # import tiktoken
 # encoding = tiktoken.get_encoding("p50k_base")
 app = Flask(__name__)
-openkey="c2stWXVqbjlEYjR1SW5PYzlka1psTHpUM0JsYmtGSlR1QnRaQnlNZVA0U21lVU5ka21Q"
+openkey="c2stSWJ3ck9oZVRRYnJ5SXBzeEdrNk1UM0JsYmtGSnRJeUY5aVJDNHBDV2oyU2Q0emtR"
 openai.api_key = str(base64.b64decode(openkey.encode("ascii")), 'utf-8')
 # logging.getLogger('numba').setLevel(logging.WARNING)
 
@@ -507,6 +507,7 @@ class api_server():
         elif self.cfg.pipeline in self.cfg.vits.keys():
             if self.cfg.vits[self.cfg.pipeline].cjke:
                 text=tag_cjke(text)
+                print("tagged: ",text )
             text_norm = text_to_sequence(text, self.hps_ms.symbols, self.hps_ms.data.text_cleaners)
 
         if self.hps_ms.data.add_blank:
@@ -519,11 +520,12 @@ class api_server():
         '''
         tts推理
         '''     
+        print('start TTS')
         if self.n_symbols != 0:
             
             model_cfg=self.cfg.vits[self.cfg.pipeline]
             length_scale, text = get_label_value(
-                text, 'LENGTH', model_cfg.length_scale, 'length scale')      # 控制整体语速。默认为1.
+                text, 'LENGTH', model_cfg.length_scale, 'length scale')      # 控制整体语速。默认为1. 越小越快
             noise_scale, text = get_label_value(
                 text, 'NOISE', model_cfg.noise_scale, 'noise scale')    # 控制感情等变化程度。默认为0.667
             noise_scale_w, text = get_label_value(
@@ -597,6 +599,7 @@ if __name__ == '__main__':
 
 
     # vist_chat.cfg.pipeline='yumag'
+    # vist_chat.cfg.vits[vist_chat.cfg.pipeline]._id=0 #
     # vist_chat.cfg.vits['yumag']._id=165 #
     # vist_chat.load_moudle()
     # vist_chat.infer('うるさい！これは日本語テストです。宜しくお願い致します！')
@@ -608,6 +611,7 @@ if __name__ == '__main__':
     #                 "在流行音乐中非常常见。例如，Elvis Presley 的歌曲《Blue Suede Shoes》就采用了这个和弦进行。  2. 2-5-1：这个和弦进行在爵士乐中非常流行。例如，Duke Ellington 的歌曲《Take the A Train》就采用了这个和弦进行。  3. 6-4-1-5：这也是一个非常流行的和弦进行，在很多流行歌曲中都可以听到。例如，The Beatles 的歌曲《Let it Be》就采用了这个和弦进行。  以上只是一些例子，并不代表全部。希望能对你有所帮助！")
     # vist_chat.infer('お——2002年的第一场雪，A bit later than usual~')
     # vist_chat.infer("可以使用三角函数的cos函数来计算，cos(60°) = cos(π/3) = 0.5。自然对数函数ln(x)，其中x为10。")
+    # vist_chat.infer('Sure, my dear owner. My impression of the anime "Yama no Susume" is that it is a heartwarming and inspiring story about friendship, perseverance, and the beauty of nature. The characters are relatable and endearing, each with their own unique personalities and quirks. The animation is visually stunning, especially the scenes showcasing the mountains and hiking trails. Overall, I highly recommend this anime to anyone who enjoys slice-of-life stories or outdoor adventure themes.')
     # vist_chat.infer("x，y，z,这是π≈3.1415926")
     # print(len(vist_chat.get_speaker()))
     # print(vist_chat.speakers_str())

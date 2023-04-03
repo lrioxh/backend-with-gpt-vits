@@ -61,9 +61,9 @@
         "vctk":{
             "model":"pipeline/vctk/pretrained_vctk.pth",
             "config":"pipeline/vctk/vctk_base.json",
-            "_id":34,
+            "_id":0,
             "cjke":false,
-            "length_scale":1,
+            "length_scale":1.1,
             "noise_scale":0.667,
             "noise_scale_w":0.8
         },
@@ -81,7 +81,7 @@
             "config":"pipeline/uma/uma_trilingual.json",
             "_id":165,
             "cjke":true,
-            "length_scale":0.75,
+            "length_scale":1.15,
             "noise_scale":0.667,
             "noise_scale_w":0.8
         },

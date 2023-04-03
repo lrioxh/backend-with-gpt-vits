@@ -1,12 +1,8 @@
 # Backend server with GPT & VITS
 
-> TODO：riva语音输入，语音输入GUI显示
-
-更新中...
-
 UPDATE: whisper语音输入, 第一次会下载预训练模型。输入//指令开始录音
 
-GPT方面接入chatGPT和gpt3 api，有记忆连续对话，可切换
+GPT方面接入chatGPT和gpt3 api，有记忆连续对话，可切换接口
 
 VITS方面详见表格，中英日韩自动tag读出
 
@@ -26,18 +22,6 @@ pip install -r requirements.txt
 
 ##### 2. openai-python (**可略过**)
 
-openai 0.27.0 pypi已更新，可直接pip安装，已成功安装0.27以上版本可略过
-
-> 最新库可能需要手动安装
->
-> [仓库](https://github.com/openai/openai-python)下载源码，不要下载release
->
-> 激活你的环境，cd源码目录
->
-> ```
-> pip install .
-> ```
->
 > OpenAI API Key: 自行注册或[联系我](https://space.bilibili.com/23698455)
 >
 
@@ -70,17 +54,16 @@ vctk依赖于espeak，不使用该模型**可以略过**
 
 技术交流，严禁商用
 
-| 名称                                                         | 音素     | 语言        | 语料     | 来源                                                         | 人   |
-| ------------------------------------------------------------ | -------- | ----------- | -------- | ------------------------------------------------------------ | ---- |
-| [vctk(base)](https://drive.google.com/drive/folders/1ksarh-cJf3F5eKJjLVWY0X1j1qsQqiS2) | 英文音标 | en,zh       | vctk     | [vits](https://github.com/jaywalnut310/vits)                 | 110  |
-| [yuzu](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/EQ0IKHchgzZAt0E6GryW17EBsIlIkmby6BcO9FtoODjwNQ?e=5uzWtj) | 国际音标 | jp,zh       | yuzusoft | [moegeo](https://github.com/CjangCjengh/TTSModels)           | 4    |
-| [cjke](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/EfW8nGHBejxEisHhxVjq1v4BOxqT7YJ-p_pudTPEoDDxxw?e=O8DNrR) | 国际音标 | jp,zh,en,kr | anime    | [moegeo](https://github.com/CjangCjengh/TTSModels)           | 2890 |
-| [genshin](https://huggingface.co/lrioxh/vits/blob/main/G_809000.pth) | 汉语拼音 | zh          | 原       | [link](http://nscc-gz.cn/)                                   | 53   |
-| [uma87](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/pretrained_models/G_jp.pth) | 罗马音   | jp          | 马       | [Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 87   |
-| [yumag](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/pretrained_models/G_trilingual.pth) | 国际音标 | zh,jp,en    | 马yuzu原 | [Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 147  |
-| [humag](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 国际音标 | zh,jp       | 马崩原   | [sayashi](https://huggingface.co/spaces/sayashi/vits-uma-genshin-honkai) | 804  |
+详情参见来源介绍及config文件
 
-更改了genshin的cleaner可以读简单的数学公式。
+| 名称                                                         | 音素     | 语言        | 来源                                                         | 人   |
+| ------------------------------------------------------------ | -------- | ----------- | ------------------------------------------------------------ | ---- |
+| [vctk(base)](https://drive.google.com/drive/folders/1ksarh-cJf3F5eKJjLVWY0X1j1qsQqiS2) | 英文音标 | en,zh       | [vits](https://github.com/jaywalnut310/vits)                 | 110  |
+| [yuzu](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/EQ0IKHchgzZAt0E6GryW17EBsIlIkmby6BcO9FtoODjwNQ?e=5uzWtj) | 国际音标 | jp,zh       | [moegeo](https://github.com/CjangCjengh/TTSModels)           | 4    |
+| [cjke](https://sjtueducn-my.sharepoint.com/:u:/g/personal/cjang_cjengh_sjtu_edu_cn/EfW8nGHBejxEisHhxVjq1v4BOxqT7YJ-p_pudTPEoDDxxw?e=O8DNrR) | 国际音标 | jp,zh,en,kr | [moegeo](https://github.com/CjangCjengh/TTSModels)           | 2890 |
+| [uma87](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/pretrained_models/G_jp.pth) | 罗马音   | jp          | [Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 87   |
+| [yumag](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer/blob/main/pretrained_models/G_trilingual.pth) | 国际音标 | zh,jp,en    | [Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 147  |
+| [humag](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer) | 国际音标 | zh,jp       | [sayashi](https://huggingface.co/spaces/sayashi/vits-uma-genshin-honkai) | 804  |
 
 
 
