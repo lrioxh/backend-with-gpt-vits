@@ -17,6 +17,8 @@ from torch import no_grad, LongTensor
 import openai
 import base64
 from flask import Flask, request,make_response, jsonify
+from io import BytesIO  
+from numpy import loadtxt
 from asr_server import whisper_ASR
 # import requests
 # from threading import Thread, Event
@@ -588,6 +590,44 @@ def chat():
         rsp.set_data(f.read())
     return rsp
 
+@app.route("/voice", methods=["POST"])
+def voice():
+    
+    # fileName = "recvFiles\\"
+    # fileName += "clientVoice"  
+    # fileName += ".wav"
+
+    # 客户端发来的语音数据是json格式
+    # {
+    #    "Voice": "base64-encoded string of .wav"
+    # }
+    # 先解析json，再取出Voice字段进行base64解码，得到.wav数据(16000采样率，单声道)
+    voice = json.loads(request.data.decode())["Voice"]
+
+    wavData = base64.b64decode(voice.encode())
+    with open(asr.input_path, "wb") as f:
+        f.write(wavData) #写文件
+    text=asr.recognize(asr.input_path)
+    # text = process(wavData) # 语音识别的结果: text
+    
+    reply=vist_chat.chat(text) # 对话文本生成
+    print('Raw reply:')
+    print(reply)
+    reply= re.sub(r'[\s]+', ' ', reply)
+    vist_chat.infer(reply) 
+    # newWavData = tts(newText) # 文本生成语音
+
+    res = dict()
+    # res["Text"] = newText
+    # res["Text"] = "这是语音识别+文本处理后的结果"
+    res["Text"] = reply
+
+    data = open(vist_chat.res_path, "rb").read()
+
+    # res[Sound] = base64.b64encode(newWavData).decode()
+    res["Sound"] = base64.b64encode(data).decode()
+
+    return res
 
 if __name__ == '__main__':
     server_config=r'./server_config.json'

@@ -13,6 +13,7 @@ class whisper_ASR():
         self.model = whisper.load_model(self.cfg.whisper.size,self.device,self.cfg.whisper.model_path)
         self.r = sr.Recognizer() #创建识别类
         self.mic = sr.Microphone() #创建麦克风对象
+        self.input_path=f"{self.cfg.cache_path}/input.wav"
         # pass
     def reload(self,cfg):
         self.cfg=cfg
@@ -22,6 +23,8 @@ class whisper_ASR():
     def recognize(self,file):
         # load audio and pad/trim it to fit 30 seconds
         audio = whisper.load_audio(file)
+
+        # print(audio)
 
         audio = whisper.pad_or_trim(audio)
 
@@ -39,13 +42,13 @@ class whisper_ASR():
         return result.text
     
     def get_msg(self):
-        file=f"{self.cfg.cache_path}/input.wav"
+        # file=f"{self.cfg.cache_path}/input.wav"
         with self.mic as source:
             self.r.adjust_for_ambient_noise(source) #减少环境噪音
             audio = self.r.listen(source, timeout=1000) #录音，1000ms超时
-        with open(file, "wb") as f:
+        with open(self.input_path, "wb") as f:
             f.write(audio.get_wav_data(convert_rate=16000)) #写文件
-        message = self.recognize(file)
+        message = self.recognize(self.input_path)
         return message
 
 @app.route("/asr", methods=["GET"])
