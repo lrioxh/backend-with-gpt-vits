@@ -1,6 +1,6 @@
 # Backend server with GPT & VITS
 
-UPDATE: whisper语音输入, 第一次会下载预训练模型。输入//指令开始录音
+UPDATE: whisper语音输入, 第一次会下载预训练模型，默认small，可在[配置文件](https://github.com/lrioxh/backend-with-gpt-vits/blob/main/server_config.json)更改。接受前端录音base64，或输入`//`指令开始录音（`//`仅支持本地服务器）
 
 GPT方面接入chatGPT和gpt3 api，有记忆连续对话，可切换接口
 
