@@ -75,6 +75,8 @@ vctk依赖于espeak，不使用该模型**可以略过**
 
 [配置文件](https://github.com/lrioxh/backend-with-gpt-vits/blob/main/server_config.json)可以添加模型，更改默认配置
 
+语音输入可接受前端发送base64的wav文件,也可输入`//`指令后本地录音
+
 ![image-20230310114752315](http://m.qpic.cn/psc?/V52VtAJj03gqAZ1Zi9Ot2f5BBX0L3sbF/bqQfVz5yrrGYSXMvKr.cqWsrEn6Fs7jn8YSikLlBqs5oRsu5FD3zxHbcEtAHADMqlT*6bPEXcxyPhzd0QLOp2T7M4ouw7BlCEuiBRpsfdc0!/b&bo=2wEpAQAAAAADB9A!&rf=viewer_4)
 
 
@@ -94,7 +96,7 @@ vctk依赖于espeak，不使用该模型**可以略过**
 | /name={str}                | 设置对话AI名字             | 给你的幻想朋友起个名                  | /name=MOSS |
 | /api={api}, /{api}         | 更换对话API                | api合法值[gpt3, chatGPT]，默认chatGPT | /gpt3      |
 | /restart                   | 重启服务，重置设定         | -                                     | -          |
-| //                         | 语音输入开始录音（暂用）   | -                                     | -          |
+| //                         | 语音输入开始录音           | 本地录音仅支持本地服务器              | -          |
 
 bug反馈可提交issue
 
