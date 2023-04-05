@@ -21,8 +21,6 @@ from io import BytesIO
 from numpy import loadtxt
 from asr_server import whisper_ASR
 # import requests
-# from threading import Thread, Event
-# from queue import Queue
 # import tiktoken
 # encoding = tiktoken.get_encoding("p50k_base")
 app = Flask(__name__)
@@ -37,45 +35,10 @@ kr_pattern = re.compile(r'[\uac00-\ud7af\u1100-\u11ff\u3130-\u318f\ua960-\ua97f]
 num_pattern=re.compile(r'[0-9]')
 comma=r"(?<=[.。!！?？；;，,、:：'\"‘“”’()（）《》「」~——])"    #向前匹配但固定长度
 tags={'ZH':'[ZH]','EN':'[EN]','JP':'[JA]','KR':'[KR]'}
-# stop_event = Event()
-# msg_queue = Queue()
 
 def restart_program():
     python = sys.executable
     os.execl(python, python, * sys.argv)
-
-# def get_asr_msg():
-#     # from asr_server import whisper_ASR,sr
-#     # asr=whisper_ASR(server_config)
-#     # r = sr.Recognizer() #创建识别类
-#     # mic = sr.Microphone() #创建麦克风对象
-#     # print()
-#     return asr.get_msg()
-
-# def start_thread(size,device,model_path):
-#     # 启动新线程
-#     t = Thread(target=to_whisper,args=(size,device,model_path))
-#     t.start()
-#     return 'Started'
-
-# def stop_thread():
-#     # 设置Event对象，停止线程运行
-#     stop_event.set()
-#     return 'Stopped'
-
-# def to_whisper(size,device,model_path):
-#     from asr import whisper_ASR,sr
-#     _ASR=whisper_ASR(size,device,model_path)
-#     r = sr.Recognizer() #创建识别类
-#     mic = sr.Microphone() #创建麦克风对象
-#     while not stop_event.is_set():
-#         # 这里可以写你的逻辑，获取msg并返回
-#         msg = 'Hello World'
-#         # print(msg)
-#         # 通过Flask提供的方法将数据返回到主线程
-#         msg_queue.put(msg)
-#         # 线程休眠，避免过于频繁的操作
-#         stop_event.wait(1)
 
 def tag_cjke(text):
     '''为中英日韩加tag,中日正则分不开，故先分句分离中日再识别，以应对大部分情况
@@ -566,7 +529,7 @@ def chat():
             text=asr.get_msg()
         else:
             res=vist_chat.command(text)
-            print(vist_chat.cfg.gpt,vist_chat.cfg.pipeline,vist_chat.cfg.vits[vist_chat.cfg.pipeline]._id,vist_chat.device)
+            print(f"当前配置: gpt:{vist_chat.cfg.gpt}, {vist_chat.cfg.pipeline}:{vist_chat.cfg.vits[vist_chat.cfg.pipeline]._id}, device:{vist_chat.device}")
             # vist_chat.load_moudle()
             rsp = make_response()
             if res:
@@ -592,11 +555,6 @@ def chat():
 
 @app.route("/voice", methods=["POST"])
 def voice():
-    
-    # fileName = "recvFiles\\"
-    # fileName += "clientVoice"  
-    # fileName += ".wav"
-
     # 客户端发来的语音数据是json格式
     # {
     #    "Voice": "base64-encoded string of .wav"
@@ -607,8 +565,7 @@ def voice():
     wavData = base64.b64decode(voice.encode())
     with open(asr.input_path, "wb") as f:
         f.write(wavData) #写文件
-    text=asr.recognize(asr.input_path)
-    # text = process(wavData) # 语音识别的结果: text
+    text=asr.recognize(asr.input_path)  # 语音识别的结果: text
     
     reply=vist_chat.chat(text) # 对话文本生成
     print('Raw reply:')
@@ -618,13 +575,9 @@ def voice():
     # newWavData = tts(newText) # 文本生成语音
 
     res = dict()
-    # res["Text"] = newText
-    # res["Text"] = "这是语音识别+文本处理后的结果"
     res["Text"] = reply
 
     data = open(vist_chat.res_path, "rb").read()
-
-    # res[Sound] = base64.b64encode(newWavData).decode()
     res["Sound"] = base64.b64encode(data).decode()
 
     return res

@@ -81,7 +81,7 @@
             "config":"pipeline/uma/uma_trilingual.json",
             "_id":165,
             "cjke":true,
-            "length_scale":1.15,
+            "length_scale":1.1,
             "noise_scale":0.667,
             "noise_scale_w":0.8
         },

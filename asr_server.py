@@ -54,12 +54,6 @@ class whisper_ASR():
 @app.route("/asr", methods=["GET"])
 def asr_():
     '''处理前端信息和后端响应'''
-    # with mic as source:
-    #     r.adjust_for_ambient_noise(source) #减少环境噪音
-    #     audio = r.listen(source, timeout=1000) #录音，1000ms超时
-    # with open('cache/' + f"test.wav", "wb") as f:
-    #     f.write(audio.get_wav_data(convert_rate=16000)) #写文件
-    # message = asr.recognize(f"cache/test.wav")
     message=asr.get_msg()
     return message
     
